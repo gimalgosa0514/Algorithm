@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+
+// 카운팅 정렬. 집합에 각 항목이 몇개 있냐? 그걸 세는 작업을 통해 정렬을 하는거임.
+// 시간 복잡도는 O(n+k) 즉 선형시간임! O(N) 
+// 근데 얘는 수의 범위를 보고 정해야함.. 입력 받을 수 있는 수가 너무 크고, 범위가 중구난방이면
+// 메모리의 낭비가.....
+// 안정 정렬이기에, 같은 값을 가지는 복수의 원소들이 정렬 후에도 정렬 전과 같은 순서를 가집니다링.
 public class B10989 {
     public static void main(String[] args) throws IOException{
         
