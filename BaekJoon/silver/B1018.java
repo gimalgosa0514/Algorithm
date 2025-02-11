@@ -18,7 +18,7 @@ public class B1018 {
 
         String[][] originalChess = new String[N][M];
         int flag = 0;
-        if(arr[0][0] == "W") {
+        if(arr[0][0].equals("W")) {
             flag =1;
         }
 
