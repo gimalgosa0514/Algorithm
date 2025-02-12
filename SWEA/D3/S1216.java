@@ -25,11 +25,7 @@ public class S1216 {
             
             //우선 배열 초기화 먼저..
             for(int i = 0; i<N; i++) {
-                String str = br.readLine().trim();
-                for(int j =0; j<N; j++) {
-                    charArr[i][j] = str.charAt(j);
-                }
-                
+                charArr[i] = br.readLine().trim().toCharArray();                
             }
 
 
@@ -51,6 +47,7 @@ public class S1216 {
                         StringBuilder tempStr = new StringBuilder();
                         StringBuilder tempStr2 = new StringBuilder(); // 열 우선 순회.
 
+                        // j 부터 k까지 즉 부분배열을 돌면서 회문이 있는지, 없는지 검사하는거임..
                         for(int q = j; q<=k; q++) {
                             tempStr.append(charArr[i][q]);
                             tempStr2.append(charArr[q][i]);
