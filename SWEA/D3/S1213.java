@@ -11,11 +11,11 @@ public class S1213 {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out)); 
         StringBuilder sb = new StringBuilder();
         
-        int t = 0;
-        while(t != 10) {
+        
+        for(int tc = 1; tc<=10; tc++) {
             
             
-            t = Integer.parseInt(br.readLine());
+            int t = Integer.parseInt(br.readLine());
 
             String target = br.readLine();
             String source = br.readLine();
