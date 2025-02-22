@@ -3,67 +3,88 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+// 메모리 문제로 인해 인접 행렬로 낭비되는 공간을 줄이고자, 리스트 배열을 만들어서 사용해야함.
 public class B11725 {
 
-    static Node head = new Node(1);
+   
     static StringBuilder sb = new StringBuilder();
+    static int node;
+    static int line;
+    static int start=2;
+    static ArrayList<Integer>[] arr;
+    static Queue<Integer> q = new LinkedList<>();
+    static boolean[] flag;
+    static int[] parents;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
        
 
-        int N = Integer.parseInt(br.readLine());
+        node = Integer.parseInt(br.readLine());
+        line = node-1;
+        parents = new int[node+1];
+        arr = new ArrayList[node+1];
 
-        
-        for(int i = 0; i<N-1; i++) {
-            String[] commands = br.readLine().split(" ");
-            
-            int p = Integer.parseInt(commands[0]);
-            int c = Integer.parseInt(commands[1]);
-
-            insert(head,p,c);
+        // 리스트 배열 초기화
+        for(int i = 1; i<=node; i++) {
+            arr[i] = new ArrayList<>();
         }
-        inOrder(head);
+
+        for(int i = 0; i< line; i++) {
+            
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            // 이렇게 각 리스트에 다음 노드를 추가해주면 됨.
+            arr[a].add(b);
+            arr[b].add(a);
+            
+        }
+
+        flag = new boolean[node+1];
+ 
+        start =1;
+        bfs(start);
+
+        for(int i = 2;i<=node; i++) {
+            sb.append(parents[i]).append("\n");
+        }
+        
         bw.write(sb.toString());
         bw.flush();
         bw.close();
     }
 
+    public static void bfs(int start) {
 
-    public static void insert(Node temp, int root, int l) {
-        if(temp.value == root) {
-            if(temp.left == null) {
-                temp.left = new Node(l);
-            } else if(temp.right == null){
-                temp.right = new Node(l);
+        q.add(start);
+        flag[start] = true;
+
+        while(!q.isEmpty()) {
+
+            start = q.poll();
+            // 탐색 시 해당 인덱스에 연결된 노드가 탐색을 했는지 여부를 보며 탐색.
+            for(int next : arr[start]) {
+                if(!flag[next]) {
+                    flag[next] = true;
+                    q.add(next);
+                    parents[next] = start;
+                    
+                }
             }
-        } else {
-            if(temp.left != null) insert(temp.left, root, l);
-            if(temp.right != null) insert(temp.right, root, l);
+
+
         }
+
     }
 
-    public static void inOrder(Node head) {
-        sb.append(head.value);
-        if(head.left != null) {
-            inOrder(head.left); 
-        } 
-        if(head.right != null) {
-            inOrder(head.right);
-        }
-        
-        
-    }
 
-    static class Node {
-        int value;
-        Node left;
-        Node right;
 
-        Node(int v) {
-            value = v;
-        }
-    }
-
+   
 }
