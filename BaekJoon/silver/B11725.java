@@ -6,37 +6,64 @@ import java.io.OutputStreamWriter;
 
 public class B11725 {
 
+    static Node head = new Node(1);
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringBuilder sb = new StringBuilder();
+       
 
         int N = Integer.parseInt(br.readLine());
 
-        String[][] tree = new String[N+1][3];
+        
         for(int i = 0; i<N-1; i++) {
             String[] commands = br.readLine().split(" ");
             
-            String p = commands[0];
-            String c = commands[1];
+            int p = Integer.parseInt(commands[0]);
+            int c = Integer.parseInt(commands[1]);
 
-            // 왼쪽 노드
-            if(tree[Integer.parseInt(p)][0] == null) {
-                tree[Integer.parseInt(p)][0] = c;
-            } else {
-                tree[Integer.parseInt(p)][1] = c;
-            }
-            tree[Integer.parseInt(c)][2] = p;
-
-
+            insert(head,p,c);
         }
-
-        for(int i = 1; i<=N-1; i++) {
-            sb.append(tree[i][2]).append("\n");
-        }
-
+        inOrder(head);
         bw.write(sb.toString());
         bw.flush();
         bw.close();
     }
+
+
+    public static void insert(Node temp, int root, int l) {
+        if(temp.value == root) {
+            if(temp.left == null) {
+                temp.left = new Node(l);
+            } else if(temp.right == null){
+                temp.right = new Node(l);
+            }
+        } else {
+            if(temp.left != null) insert(temp.left, root, l);
+            if(temp.right != null) insert(temp.right, root, l);
+        }
+    }
+
+    public static void inOrder(Node head) {
+        sb.append(head.value);
+        if(head.left != null) {
+            inOrder(head.left); 
+        } 
+        if(head.right != null) {
+            inOrder(head.right);
+        }
+        
+        
+    }
+
+    static class Node {
+        int value;
+        Node left;
+        Node right;
+
+        Node(int v) {
+            value = v;
+        }
+    }
+
 }
