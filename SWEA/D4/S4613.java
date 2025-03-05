@@ -30,12 +30,55 @@ public class S4613 {
             }
 
             
-            for(int i = 0; i)
+            // 첫 출과 마지막줄을 흰, 빨로 주고, 그 사이의 파란색 값이 가장 적을수가 있도록?? 해보쟈.
+            int minChange = Integer.MAX_VALUE;
+            for(int start = 1; start<N-1; start++) {
+
+                for(int end = start; end<N-1; end++) {
+                    int changeCount = 0;
+                    
+                    // 흰색 변경
+                    for(int i = 0; i<start; i++) {
+                        for(int j = 0; j<M; j++) {
+                            if(!russiaFlag[i][j].equals("W")) {
+                                changeCount++;
+                            }
+                        }
+                    }
+
+
+                    // 블루 변경
+                    for(int i = start; i<=end; i++) {
+                        for(int j = 0; j<M; j++) {
+                            if(!russiaFlag[i][j].equals("B")) {
+                                changeCount++;
+                            }
+                        }
+                    }
+
+                    // 빨강 변경
+
+                    for(int i = end+1; i<N; i++) {
+                        for(int j = 0; j<M; j++) {
+                            if(!russiaFlag[i][j].equals("R")) {
+                                changeCount++;
+                            }
+                        }
+                    }
+                    
+                    minChange = Math.min(minChange, changeCount);
+                }
+
+            }
+            sb.append("#").append(t).append(" ").append(minChange).append("\n");
+
+            }// tc loop
             
+            bw.write(sb.toString());
+            bw.flush();
+            bw.close();
             
-        } // tc loop
+    } 
         
-
-
-    }
+       
 }
