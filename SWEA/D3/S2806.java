@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+/*
+ * 풀이 :
+ * N의 사이즈가 커질수록 브루트 포스를 활용하기에는 너무 비효율적이기에 백트래킹을 이용해야한다.
+ * 방문을 체크하기 위한 배열을 만들고, 상, 위쪽 대각선을 검사하며 갈 수 있으면 간다.
+ * 단 돌아나와서 방문 배열을 원 상태로 돌려놓는 복구 작업이 필요하다.
+ */
 public class S2806 {
     
     
@@ -47,7 +53,7 @@ public class S2806 {
     }
     
     public static void nQueen(int row) {
-
+        // N이 되면 탈출을 한 후 result를 증가시킨다. 
         if(row == N) {
                 result++;
             return;
@@ -69,13 +75,13 @@ public class S2806 {
 
     public static boolean check(int row, int col) {
         
-        for(int amount = 0 ;amount < row; amount++) {
+        for(int amount = 0 ;amount <= row; amount++) {
             
             for(int i = 0; i<3; i++) {
                 int nr = row + amount * dr[i];
                 int nc = col + amount * dc[i];
 
-                if(nr >= N || nr<0 || nc >= N || nc<0 && maps[nr][nc] > 0) {
+                if(nr >= N || nr<0 || nc >= N || nc<0 ) {
                     continue;
                 }
 
